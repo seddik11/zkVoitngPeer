@@ -1,15 +1,7 @@
 import { type NextPage } from "next";
-import Link from "next/link";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { Layout } from "../../features/Layout";
-import {
-  useCommunity,
-  useOfferIPFS,
-} from "src/features/peerlocal/hooks/usePeerLocal";
-import { useOffer } from "src/features/peerlocal/hooks/usePeerLocal";
-import { usePeerLocalContract } from "src/features/peerlocal/hooks/usePeerLocalContract";
-import { useSigner } from "wagmi";
 import { useImmer } from "use-immer";
 import { useMutation } from "@tanstack/react-query";
 import { pinJSONtoPinata, uploadFile } from "../createCommunity";
@@ -18,7 +10,6 @@ import { Loading } from "../../features/Loading";
 const Listing: NextPage = () => {
   const router = useRouter();
   const listing_id = router.query.community_id as string;
-  const { createOffer, joinCommunity } = usePeerLocalContract();
   const [offerData, updateOfferData] = useImmer({
     Name: "",
     Description: "",
@@ -44,18 +35,6 @@ const Listing: NextPage = () => {
       const result = await pinJSONtoPinata(offerData);
       console.log("result", result);
       console.log("listing_id", listing_id);
-      const tx = await createOffer.mutateAsync({
-        communityId: listing_id,
-        stakingReq: 0,
-        metadata: result,
-        reputationReq: 0,
-      });
-      // @ts-ignore
-      const event = await tx.wait();
-      console.log("event", event);
-      // @ts-ignore
-      console.log("event.events[0]?.args", event.events[0]?.args[0]);
-      // @ts-ignore
       await router.back();
     },
   });

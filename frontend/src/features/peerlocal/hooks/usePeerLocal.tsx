@@ -1,12 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { subgraph } from "../../graph-client/graphClient";
 import { z } from "zod";
 
 export const useCommunites = () => {
   return useQuery({
     queryKey: ["useCommunities"],
     queryFn: () => {
-      return subgraph.Communities();
+      return "TODO";
     },
   });
 };
@@ -15,9 +14,7 @@ export const useCommunity = (props: { id: string }) => {
   return useQuery({
     queryKey: ["Community", props.id],
     queryFn: async () => {
-      return subgraph.Community({
-        communityId: props.id,
-      });
+      return "TODO";
     },
   });
 };
@@ -26,10 +23,8 @@ export const useOffer = (props: { metadata: string }) => {
   return useQuery({
     queryKey: ["Community", props.metadata],
     queryFn: async () => {
-      const offer = await subgraph.Offer({
-        metadata: props.metadata,
-      });
-      return offer.offers[0];
+      // TODO: use metadata
+      return "TODO";
     },
   });
 };
@@ -87,7 +82,7 @@ export const ipfsOfferSchema = z.object({
   Availability: z.string(),
   Pickup: z.string(),
   Image: z.string(),
-  Deposit: z.string()
+  Deposit: z.string(),
 });
 
 export type ipfsOfferSchemaType = z.infer<typeof ipfsOfferSchema>;

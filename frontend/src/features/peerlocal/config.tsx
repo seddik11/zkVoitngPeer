@@ -1,5 +1,3 @@
-import { optimismGoerli, zkSyncTestnet } from "wagmi/chains";
-
 export const PeerLocalConfig = {
   420: {
     // OP GOERLI
