@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "global": "^4.4.0",
+    "zksync-cli": "^0.1.4"
+  },
+  "version": "0.0.0"
+}
