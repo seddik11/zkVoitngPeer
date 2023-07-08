@@ -2,12 +2,8 @@ import { NextPage } from "next";
 import { useImmer } from "use-immer";
 import { useMutation } from "@tanstack/react-query";
 import { ConnectWallet } from "../features/ConnectWallet";
-import { useSigner } from "wagmi";
-import { usePeerLocalContract } from "../features/peerlocal/hooks/usePeerLocalContract";
 
 export const CreateCommunity: NextPage = () => {
-  const { createCommunity, joinCommunity } = usePeerLocalContract();
-  const signer = useSigner();
   const [communityData, updateCommunityData] = useImmer({
     Name: "",
     Description: "",
@@ -29,11 +25,6 @@ export const CreateCommunity: NextPage = () => {
     mutationFn: async (variables: {}) => {
       const result = await pinJSONtoPinata(communityData);
       console.log(result);
-      const tx = await createCommunity.mutateAsync({
-        ipfs: result,
-        stakingReq: 1,
-        stakingToken: "0xD9662ae38fB577a3F6843b6b8EB5af3410889f3A", //DAI contract address
-      });
       // @ts-ignore
       const event = await tx.wait();
       console.log("event", event);
@@ -67,16 +58,7 @@ export const CreateCommunity: NextPage = () => {
 
   const createInviteHandler = useMutation({
     mutationFn: async () => {
-      if (!signer.data) return;
-      const signature = await signer.data.signMessage(
-        "I am the owner of this community"
-      );
-      console.log(signature);
-      const fullstring =
-        `http://localhost:3000/welcome/${createCommunityHandler.data}?signature=` +
-        signature;
-      console.log(fullstring);
-      return fullstring;
+      return "TODO";
     },
   });
   return (

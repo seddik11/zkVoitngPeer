@@ -1,8 +1,5 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { HomeIcon, InboxStackIcon } from "@heroicons/react/24/outline";
-import { ToggleTheme } from "./ToggleTheme";
-import { AppModals } from "./modals/AppModals";
 import { ConnectWallet } from "./ConnectWallet";
 import { useAccount } from "wagmi";
 
